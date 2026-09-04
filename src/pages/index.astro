@@ -1,0 +1,497 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+---
+
+<Layout title="RANT">
+
+  <!-- ═══════════════════════════════════════════
+       HERO
+  ═══════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="container">
+      <img
+        src="/primary-horizontal-bg.png"
+        alt="RANT - Rack And Networking Tool"
+        class="hero-logo"
+      />
+
+      <div class="alpha-banner" data-animate>
+        <span class="alpha-banner-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+        </span>
+        <p><strong>Alpha Build - Heavy Development.</strong> APIs will change without warning and the database schema is not yet stable. Use in production at your own risk.</p>
+      </div>
+
+      <h1>A lightweight source of truth for physical network infrastructure.</h1>
+
+      <p class="lede">
+        Racks, devices, ports, and cables, documented without the overhead of enterprise DCIM.
+        If you can draw your network on a whiteboard in 10 minutes, you should be able to document it in RANT in 10 minutes.
+      </p>
+
+      <div class="hero-actions">
+        <a
+          href="https://github.com/fluffycheese/rant"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-primary"
+        >
+          <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0.297C5.37 0.297 0 5.667 0 12.297c0 5.302 3.438 9.8 8.205 11.387.6.113.82-.26.82-.577v-2.023c-3.338.726-4.033-1.61-4.033-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.744.083-.729.083-.729 1.205.084 1.84 1.237 1.84 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.304.76-1.603-2.665-.3-5.467-1.334-5.467-5.933 0-1.31.468-2.38 1.236-3.222-.124-.303-.536-1.523.117-3.176 0 0 1.008-.322 3.3 1.23a11.44 11.44 0 0 1 3.003-.404c1.02.005 2.046.137 3.003.403 2.289-1.552 3.295-1.23 3.295-1.23.655 1.653.243 2.873.12 3.176.77.842 1.235 1.912 1.235 3.222 0 4.61-2.807 5.628-5.48 5.922.429.37.813 1.1.813 2.222v3.293c0 .32.216.694.825.576C20.565 22.092 24 17.595 24 12.297 24 5.667 18.627.297 12 .297z"/></svg>
+          Get Started on GitHub
+        </a>
+        <a
+          href="https://demo-rant.fluffycheese.co.uk"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-secondary"
+        >
+          Try Live Demo
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       WHY RANT EXISTS - The Gap
+  ═══════════════════════════════════════════ -->
+  <section class="section section--surface" id="why">
+    <div class="container">
+      <div class="gap-grid" data-animate>
+        <div>
+          <span class="section-label">The Problem</span>
+          <h2>There was nothing in between.</h2>
+          <p>
+            If you've ever needed to document a network rack, you've probably hit the same wall:
+            <strong>there was nothing in between</strong> a handful of single-purpose tools and a
+            full enterprise DCIM platform.
+          </p>
+          <p>
+            RANT fills that gap. Built for homelabbers, small IT teams, and anyone who needs to
+            know which cable goes where, without deploying an enterprise platform to find out.
+          </p>
+          <p>
+            The existing tools are excellent, but each leaves part of the problem unsolved:
+          </p>
+        </div>
+
+        <div>
+          <div class="tool-row">
+            <div style="flex: 1;">
+              <strong>ECCM</strong>
+              <p style="margin-top: 0.25rem;">
+                Maps cable connections beautifully. Its "click to patch" approach directly inspired RANT.
+                But it has no concept of racks or sites and stores everything in browser localStorage.
+              </p>
+            </div>
+            <span class="tool-verdict verdict-partial">No Racks</span>
+          </div>
+          <div class="tool-row">
+            <div style="flex: 1;">
+              <strong>Rackula</strong>
+              <p style="margin-top: 0.25rem;">
+                Renders gorgeous drag-and-drop rack elevations with real device images.
+                But has no cable documentation at all, you still can't know what's plugged in where.
+              </p>
+            </div>
+            <span class="tool-verdict verdict-partial">No Cables</span>
+          </div>
+          <div class="tool-row">
+            <div style="flex: 1;">
+              <strong>NetBox</strong>
+              <p style="margin-top: 0.25rem;">
+                Does everything: IPAM, circuits, power, tenancy, REST + GraphQL APIs. But requires
+                PostgreSQL, Redis, a task queue, and real maintenance. Serious infrastructure for a
+                12-device homelab.
+              </p>
+            </div>
+            <span class="tool-verdict verdict-heavy">Too Heavy</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       FEATURES
+  ═══════════════════════════════════════════ -->
+  <section class="section section--deep" id="features">
+    <div class="container">
+      <span class="section-label">Features</span>
+      <h2>Everything you need. Nothing you don't.</h2>
+      <p>RANT deliberately documents the physical infrastructure layer and nothing else.</p>
+
+      <div class="feature-grid" data-animate-stagger>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="4" rx="1"/><rect x="2" y="9" width="20" height="4" rx="1"/><rect x="2" y="15" width="20" height="4" rx="1"/><rect x="2" y="21" width="20" height="2" rx="1"/></svg>
+          </div>
+          <h3>Rack Layout</h3>
+          <p>U-position management with real-time collision detection. Define rack height, place devices by U-slot, and get instant warnings if you over-fill a bay.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon" style="background: rgba(167, 139, 250, 0.1); color: var(--purple);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h6v6H4z"/><path d="M14 4h6v6h-6z"/><path d="M4 14h6v6H4z"/><path d="M14 14h6v6h-6z"/><line x1="7" y1="10" x2="7" y2="14"/><line x1="17" y1="10" x2="17" y2="14"/><line x1="10" y1="7" x2="14" y2="7"/><line x1="10" y1="17" x2="14" y2="17"/></svg>
+          </div>
+          <h3>Cable Documentation</h3>
+          <p>Click-to-patch workflow for port-to-port connections. Front and back slot awareness, seamless cross-site patching, and full end-to-end cable trace with split-view.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon" style="background: rgba(16, 185, 129, 0.1); color: var(--green);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="2"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+          </div>
+          <h3>Multi-site Topology</h3>
+          <p>Site → Rack → Device hierarchy with auto-generated Mermaid.js diagrams. Click a topology node to jump straight into that rack's patch view.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h7"/><path d="M15 15l5 5M20 15l-5 5"/></svg>
+          </div>
+          <h3>Shared Team Database</h3>
+          <p>SQLite served over the network means your whole team shares one source of truth. No per-user files, no sync issues, no browser localStorage limits.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <h3>Built-in Authentication</h3>
+          <p>Session-based login with multi-user management out of the box. Or disable it entirely and trust an upstream reverse proxy (Traefik, Keycloak, Authelia).</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          </div>
+          <h3>REST API</h3>
+          <p>Full REST API for automation and integration. Inventory your racks programmatically, export cable lists, or hook RANT into your existing toolchain.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       COMPARISON TABLE
+  ═══════════════════════════════════════════ -->
+  <section class="section section--surface" id="compare">
+    <div class="container">
+      <span class="section-label">Comparison</span>
+      <h2>How RANT compares</h2>
+      <p>Every tool here is excellent at what it does. RANT's value is in combining rack layout, cable documentation, and multi-site management at zero operational overhead.</p>
+
+      <div class="compare-table-wrap" data-animate>
+        <table>
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th class="rant-col">RANT</th>
+              <th>ECCM</th>
+              <th>Rackula</th>
+              <th>NetBox</th>
+              <th>RackTables</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Rack layout</td>
+              <td><span class="tick">✔</span> U-position + collision detection</td>
+              <td><span class="cross">✗</span> No rack concept</td>
+              <td><span class="tick">✔</span> Drag-and-drop</td>
+              <td><span class="tick">✔</span> Full elevation views</td>
+              <td><span class="tick">✔</span> Basic</td>
+            </tr>
+            <tr>
+              <td>Cable documentation</td>
+              <td><span class="tick">✔</span> Port-to-port, front/back, cross-site</td>
+              <td><span class="tick">✔</span> Excellent, its core strength</td>
+              <td><span class="cross">✗</span> None</td>
+              <td><span class="tick">✔</span> Full cable tracing</td>
+              <td><span class="tick">✔</span> Physical ports</td>
+            </tr>
+            <tr>
+              <td>Multi-site topology</td>
+              <td><span class="tick">✔</span> Site → Rack → Device, Mermaid diagrams</td>
+              <td><span class="cross">✗</span> Single-page, no hierarchy</td>
+              <td><span class="cross">✗</span> Single rack at a time</td>
+              <td><span class="tick">✔</span> Full multi-tenancy</td>
+              <td><span class="tick">✔</span> Locations</td>
+            </tr>
+            <tr>
+              <td>Shared database</td>
+              <td><span class="tick">✔</span> SQLite (team access via server)</td>
+              <td><span class="cross">✗</span> Browser localStorage only</td>
+              <td><span class="partial">~</span> Optional backend</td>
+              <td><span class="tick">✔</span> PostgreSQL</td>
+              <td><span class="tick">✔</span> MySQL</td>
+            </tr>
+            <tr>
+              <td>Initial setup</td>
+              <td><span class="tick">✔</span> Single container or <code>nix-build</code></td>
+              <td><span class="tick">✔</span> Open a file</td>
+              <td><span class="tick">✔</span> Single container</td>
+              <td><span class="cross">✗</span> Multi-service stack, Redis, workers</td>
+              <td><span class="partial">~</span> LAMP provisioning</td>
+            </tr>
+            <tr>
+              <td>IPAM / VLANs</td>
+              <td><span class="cross">✗</span> Deliberately out of scope</td>
+              <td><span class="cross">✗</span> N/A</td>
+              <td><span class="cross">✗</span> N/A</td>
+              <td><span class="tick">✔</span> Full IPAM</td>
+              <td><span class="partial">~</span> Basic</td>
+            </tr>
+            <tr>
+              <td>REST API</td>
+              <td><span class="tick">✔</span> Full REST API</td>
+              <td><span class="cross">✗</span> N/A</td>
+              <td><span class="cross">✗</span> N/A</td>
+              <td><span class="tick">✔</span> REST + GraphQL + webhooks</td>
+              <td><span class="partial">~</span> Basic</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="compare-table-wrap" style="margin-top: 2.5rem;" data-animate>
+        <table>
+          <thead>
+            <tr>
+              <th>Effort</th>
+              <th class="rant-col">RANT</th>
+              <th>ECCM</th>
+              <th>Rackula</th>
+              <th>NetBox</th>
+              <th>RackTables</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Initial setup</td>
+              <td>🟢 Single container or <code>nix-build</code></td>
+              <td>🟢 Open a file</td>
+              <td>🟢 Single container</td>
+              <td>🔴 Multi-service stack, migrations, workers</td>
+              <td>🟡 LAMP provisioning + schema</td>
+            </tr>
+            <tr>
+              <td>Rack documentation</td>
+              <td>🟢 Define and go</td>
+              <td>🔴 N/A</td>
+              <td>🟢 Drag-and-drop</td>
+              <td>🟡 Device-types, roles, manufacturers first</td>
+              <td>🟢 Straightforward</td>
+            </tr>
+            <tr>
+              <td>Cable documentation</td>
+              <td>🟢 Click-to-patch</td>
+              <td>🟢 Drag-and-drop</td>
+              <td>🔴 N/A</td>
+              <td>🔴 Cable types, terminations, rear ports</td>
+              <td>🟡 Manual configuration</td>
+            </tr>
+            <tr>
+              <td>Multi-site</td>
+              <td>🟢 Create sites, add racks</td>
+              <td>🔴 N/A</td>
+              <td>🔴 N/A</td>
+              <td>🔴 Regions, site groups, locations, tenancy</td>
+              <td>🟡 Location hierarchy</td>
+            </tr>
+            <tr>
+              <td>Dependencies</td>
+              <td>🟢 Node.js, SQLite</td>
+              <td>🟢 None (static HTML)</td>
+              <td>🟢 Node.js</td>
+              <td>🔴 Python, PostgreSQL, Redis</td>
+              <td>🟡 PHP, MySQL, Apache</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="effort-legend" style="margin-top: 1rem;">
+        <span>🟢 Minimal</span>
+        <span>🟡 Moderate</span>
+        <span>🔴 Significant</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       DEPLOYMENT
+  ═══════════════════════════════════════════ -->
+  <section class="section section--deep" id="deploy">
+    <div class="container">
+      <span class="section-label">Deployment</span>
+      <h2>Three ways to run RANT.</h2>
+      <p>Same codebase, three deployment targets. Pick whatever fits your environment.</p>
+
+      <div class="deploy-grid" data-animate-stagger>
+
+        <div class="deploy-card">
+          <div class="deploy-card-header">
+            <span class="deploy-emoji">🐳</span>
+            <h3>Docker</h3>
+          </div>
+          <div class="deploy-card-body">
+            <div class="deploy-meta">
+              <div class="deploy-meta-row"><strong>Best for:</strong> <span>Self-hosted, existing container infrastructure</span></div>
+              <div class="deploy-meta-row"><strong>Database:</strong> <span>SQLite file on a Docker volume</span></div>
+              <div class="deploy-meta-row"><strong>Auth:</strong> <span>Built-in login or proxy auth (Traefik/Keycloak)</span></div>
+            </div>
+            <pre><code>docker build -t rant:latest .
+
+docker run -d \
+  --name rant \
+  -p 3001:3001 \
+  -v rant_data:/app/data \
+  --restart unless-stopped \
+  rant:latest</code></pre>
+            <p style="margin-top: 1rem; font-size: 0.88rem; color: var(--text-muted);">Access at <code>http://localhost:3001</code>. First launch prompts you to create an admin user.</p>
+          </div>
+        </div>
+
+        <div class="deploy-card">
+          <div class="deploy-card-header">
+            <span class="deploy-emoji">☁️</span>
+            <h3>Cloudflare Pages + D1</h3>
+          </div>
+          <div class="deploy-card-body">
+            <div class="deploy-meta">
+              <div class="deploy-meta-row"><strong>Best for:</strong> <span>Zero-ops hosting, global CDN, CI/CD from Git</span></div>
+              <div class="deploy-meta-row"><strong>Database:</strong> <span>Cloudflare D1 (managed SQLite)</span></div>
+              <div class="deploy-meta-row"><strong>Cost:</strong> <span>Free tier: 100k requests/day, 5GB D1</span></div>
+            </div>
+            <pre><code>wrangler d1 create rant-db
+cp wrangler.example.toml wrangler.toml
+
+wrangler d1 migrations apply rant-db --remote
+
+npm install && cd client && npm install
+cd .. && npm run build:cf
+
+wrangler pages deploy dist/public</code></pre>
+            <p style="margin-top: 1rem; font-size: 0.88rem; color: var(--text-muted);">Push to Git to auto-deploy. Connect D1 in the Cloudflare dashboard under Settings → Functions.</p>
+          </div>
+        </div>
+
+        <div class="deploy-card">
+          <div class="deploy-card-header">
+            <span class="deploy-emoji">❄️</span>
+            <h3>Nix</h3>
+          </div>
+          <div class="deploy-card-body">
+            <div class="deploy-meta">
+              <div class="deploy-meta-row"><strong>Best for:</strong> <span>NixOS users, reproducible and auditable builds</span></div>
+              <div class="deploy-meta-row"><strong>Database:</strong> <span>SQLite file on disk</span></div>
+              <div class="deploy-meta-row"><strong>Auth:</strong> <span>Built-in login or proxy auth</span></div>
+            </div>
+            <pre><code>nix-build
+./result/bin/rant
+
+# Or install into your profile:
+nix-env -if .
+rant</code></pre>
+            <p style="margin-top: 1rem; font-size: 0.88rem; color: var(--text-muted);">On first build, copy the hash from the error message into <code>default.nix</code>, standard Nix behaviour.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       DESIGN PHILOSOPHY / NON-GOALS
+  ═══════════════════════════════════════════ -->
+  <section class="section section--surface" id="philosophy">
+    <div class="container">
+      <span class="section-label">Design Philosophy</span>
+      <h2>Do one thing well.</h2>
+      <p>
+        RANT's data model borrows heavily from NetBox's proven hierarchy (Sites → Racks → Devices → Ports),
+        and its "click to patch" interaction pattern comes directly from ECCM's zero-friction design.
+        We owe both projects a significant debt.
+      </p>
+      <p>
+        The difference is scope. RANT documents the <strong>physical infrastructure layer</strong> and nothing else.
+        These are explicit non-goals, they protect the project's simplicity:
+      </p>
+
+      <div class="nongoals-grid" data-animate-stagger>
+        <div class="nongoal-item">
+          <h4>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-faint)" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            Not an IPAM
+          </h4>
+          <p>Use NetBox for IP address and VLAN management. RANT is intentionally blind to the logical layer.</p>
+        </div>
+        <div class="nongoal-item">
+          <h4>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-faint)" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            Not a Monitoring Tool
+          </h4>
+          <p>RANT documents what exists, not whether it's healthy. Use Prometheus, Zabbix, or LibreNMS for that.</p>
+        </div>
+        <div class="nongoal-item">
+          <h4>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-faint)" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            Not a DCIM Platform
+          </h4>
+          <p>No power, cooling, or physical capacity modelling. Those require a dedicated DCIM like openDCIM.</p>
+        </div>
+        <div class="nongoal-item">
+          <h4>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-faint)" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            Not a Config Manager
+          </h4>
+          <p>Ansible, Nornir, and Nautobot own configuration. RANT just documents what the cables connect to.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       BLOG PREVIEW
+  ═══════════════════════════════════════════ -->
+  {posts.length > 0 && (
+    <section class="section section--deep" id="blog">
+      <div class="container">
+        <span class="section-label">Blog</span>
+        <h2>Latest updates</h2>
+
+        <div class="blog-grid" data-animate-stagger>
+          {posts.map(post => (
+            <div class="blog-card">
+              <div class="blog-card-meta">
+                {post.data.pubDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
+                {post.data.author && ` · ${post.data.author}`}
+              </div>
+              <h3><a href={`/blog/${post.id}`}>{post.data.title}</a></h3>
+              <p>{post.data.description}</p>
+              <a href={`/blog/${post.id}`} class="blog-read-more">
+                Read more →
+              </a>
+            </div>
+          ))}
+        </div>
+
+        <div style="margin-top: 2.5rem; text-align: center;">
+          <a href="/blog" class="btn btn-secondary">View all posts</a>
+        </div>
+      </div>
+    </section>
+  )}
+
+</Layout>
