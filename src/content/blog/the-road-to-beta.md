@@ -39,6 +39,16 @@ A less obvious bug involved our `wall_panel` device category. When tracing a cab
 **Slot-Aware Endpoints**
 Patching from the back slot of a device was notoriously clunky. We overhauled the Endpoints Table to generate one row per port *per slot*, making it fully slot-aware. Now, when you click the edit or patch button on a back-slot row, the app knows exactly what you're trying to do. No more wrong device modals or invisible connections.
 
+## UI/UX Polish & Workspace Maximisation
+
+Transitioning to Beta isn't just about fixing bugs, it's also about polish. 
+
+**Brand and Colour Refresh**
+We gave the app a proper aesthetic overhaul. We introduced the new official RANT logos and refined the colour palette with high-contrast Slate, Cyan, Emerald, and Amber accents. The UI now feels much more cohesive and professional.
+
+**Maximising the Workspace**
+When tracing complex cross-site connections in the hybrid split-view, you need as much screen real estate as possible. We overhauled the layout to make the left and right sidebars fully collapsible. This solves the whitespace issues on wide screens and gives you the maximum possible area to view your rack elevations and trace connections.
+
 ## What's Next?
 
 With the Beta release, the focus shifts towards polish, edge-case testing, and preparing for the 1.0 milestone. If you've been holding off on trying RANT because of the Alpha warning, now is a great time to spin up the container and take it for a spin. 
