@@ -39,6 +39,7 @@ The site explains what RANT is, how it compares to existing tools, deployment op
 - When adding new sections to the landing page, follow the existing pattern: `<section class="section section--surface|section--deep">` with a `.container` wrapper and `.section-label` eyebrow text.
 - The mobile navigation uses a hamburger toggle (`#menuToggle`) with JavaScript in `Layout.astro`. The menu state is managed via the `.is-open` class on `#navLinks`.
 - Responsive breakpoint is `768px`. Test layout changes at both desktop and mobile widths.
+- **Astro Scoped CSS Warning:** Astro automatically scopes `<style>` blocks by applying hash classes. However, this scoping does *not* apply to HTML generated dynamically by client-side JavaScript (e.g., inside `<script is:inline>`). If you need to style dynamically injected elements, you must use `<style is:global>` or place the styles in `src/styles/global.css`.
 
 ## Content writing rules
 
