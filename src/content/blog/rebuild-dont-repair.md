@@ -1,6 +1,6 @@
 ---
 title: "Rebuild, Don't Repair"
-pubDate: 2026-09-13
+pubDate: 2026-10-06
 description: "Why I design infrastructure to be disposable, reproducible and predictable, and how that philosophy shaped RANT."
 author: "fluffycheese"
 ---
